@@ -5,14 +5,16 @@ import "./styles.css";
 export default function InfoBox({
   iconUrl,
   link,
+  path,
   heading,
   text,
   buttonText,
 }: {
   iconUrl: string;
-  link: string;
+  link?: string;
+  path?: string;
   heading: string;
-  text: string;
+  text: React.ReactNode;
   buttonText?: string;
 }) {
   return (
@@ -20,10 +22,19 @@ export default function InfoBox({
       <img src={iconUrl} alt="" />
       <h2>{heading}</h2>
       <p>{text}</p>
-      {link !== "#" && (
-        <Link to={link}>
-          <button type="button">{buttonText}</button>
+      {path && (
+        <Link to={path}>
+          <button type="button" className="btn">
+            {buttonText}
+          </button>
         </Link>
+      )}
+      {link && (
+        <a href={link} target="_blank" rel="noreferrer">
+          <button type="button" className="btn">
+            {buttonText}
+          </button>
+        </a>
       )}
     </div>
   );

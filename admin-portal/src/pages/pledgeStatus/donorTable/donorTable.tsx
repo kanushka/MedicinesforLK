@@ -20,28 +20,42 @@ export default function DonorTable({
             <th>Donor</th>
             <th>Amount</th>
             <th>Status</th>
-            <th />
+            <th> </th>
           </tr>
         </thead>
-        <tbody>
-          {pledges.map((pledge) => (
-            <tr key={pledge.pledgeID}>
-              <td>{pledge.donor.orgName}</td>
-              <td>
-                $
-                {pledge.amount.toLocaleString(undefined, {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                })}
-              </td>
-              <td>{pledge.status}</td>
-              <td>
-                <button onClick={() => onPledgeEdit(pledge)}>Edit</button>
-                <button onClick={() => onPledgeDelete(pledge)}>Delete</button>
+        {pledges.length > 0 ? (
+          <tbody>
+            {pledges.map((pledge: Pledge) => (
+              <tr key={pledge.pledgeID}>
+                <td>{pledge.donorID}</td>
+                <td>
+                  $
+                  {pledge.amount.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+                </td>
+                <td>{pledge.status}</td>
+                <td>
+                  <button type="button" onClick={() => onPledgeEdit(pledge)}>
+                    Edit
+                  </button>
+                  <button type="button" onClick={() => onPledgeDelete(pledge)}>
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        ) : (
+          <tbody>
+            <tr>
+              <td colSpan={4} style={{ textAlign: "center" }}>
+                This AidPackage does not yet include any pledges
               </td>
             </tr>
-          ))}
-        </tbody>
+          </tbody>
+        )}
       </table>
     </div>
   );
